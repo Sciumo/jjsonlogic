@@ -66,6 +66,3 @@ This project is licensed under the [Apache 2.0](LICENSE). Feel free to use it, c
 
 For any questions or suggestions regarding `jjsonlogic`, please feel free to contact us via [GitHub Issues](https://github.com/Sciumo/jjsonlogic/issues).
 
----
-
-Remember to replace placeholders like `https://github.com/Sciumo/jjsonlogic/issues` with actual URLs relevant to your project. This `README.md` provides a basic overview and starting point for users interested in using or contributing to your JSON Logic implementation.
