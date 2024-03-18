@@ -5,7 +5,7 @@ name: jjsonlogic
 
 on:
   release:
-    types: [created]
+    types: [created,released]
 
 jobs:
   build:
