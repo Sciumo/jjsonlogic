@@ -7,7 +7,7 @@ on:
   release:
     types: [created,released]
   workflow_run:
-    workflows: ["Main release"]
+    workflows: ["JavaCI"]
     types: [completed]    
 
 jobs:
