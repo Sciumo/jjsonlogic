@@ -41,7 +41,7 @@ implementation 'com.sciumo:jjsonlogic:1.0.0'
 To use `jjsonlogic` in your Java application, you'll need to instantiate the `JsonLogic` class and use its evaluation method. Here is a simple example:
 
 ```java
-import com.sciumo.jjsonlogic.JsonLogic;
+import com.sciumo.jsonlogic.JsonLogic;
 
 public class Example {
     public static void main(String[] args) {
