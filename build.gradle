@@ -1,0 +1,111 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'signing'
+}
+
+version = '1.0.1'
+group = 'com.sciumo'
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.13.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'    
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+		events "passed", "skipped", "failed"
+	}
+}
+
+
+publishing {
+    repositories {
+        maven {
+            url = uri('https://central.sonatype.com/')
+            credentials {
+                username = findProperty("sonatypeUsername") ?: System.getenv("SONATYPE_USERNAME")
+                password = findProperty("sonatypePassword") ?: System.getenv("SONATYPE_PASSWORD")
+            }
+        }
+    
+    }
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifactId = 'jjsonlogic'
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+            pom {
+                name = 'JJsonLogic'
+                groupId = 'com.sciumo'
+                artifactId = 'jjsonlogic'
+                version = '1.0.1'
+                description = 'Simple JSON Logic evaluator'
+                url = 'https://github.com/Sciumo/jjsonlogic'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'sciumo'
+                        name = 'Eric Lindahl'
+                        email = 'eric@sciumo.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/Sciumo/jjsonlogic.git'
+                    developerConnection = 'scm:git:ssh://egithub.com/Sciumo/jjsonlogic.git'
+                    url = 'https://github.com/Sciumo/jjsonlogic'
+                }
+                distributionManagement {
+                    relocation {
+                        // New artifact coordinates
+                        groupId = "com.sciumo"
+                        artifactId = "jjsonlogic"
+                        version = "1.0.1"
+                    }
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            url = layout.buildDirectory.dir("publishing-repository")
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.mavenJava
+}
+
+
+javadoc {
+    if(JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+}
+
+
